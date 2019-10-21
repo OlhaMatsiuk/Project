@@ -1,1 +1,1 @@
-# Admissions Committee
+# Admissions Committe
