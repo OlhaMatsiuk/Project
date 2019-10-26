@@ -6,6 +6,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -37,6 +39,9 @@ public class User {
 	@Column
 	private UserStatus status;
 	
+	@Enumerated(EnumType.STRING)
+	private UserRole role;
+	
 	@Column
 	private int evaluationOfCertificate;
 	
@@ -49,8 +54,20 @@ public class User {
 	private Set<Profession> professions = new HashSet<Profession>();
 	
 	public User() {}
+	
+	public User(User user) {
+		this.id = user.getId();
+		this.firstName = user.getFirstName();
+		this.lastName = user.getLastName();
+		this.email = user.getEmail();
+		this.status = user.getStatus();
+		this.evaluationOfCertificate = user.getEvaluationOfCertificate();
+		this.evaluations = user.getEvaluations();
+		this.professions = user.getProfessions();
+		this.role = user.getRole();
+	}
 
-	public User(String firstName, String lastName, String email, UserStatus status, int evaluationOfCertificate,
+	public User(String firstName, String lastName, String email, UserStatus status, UserRole role,  int evaluationOfCertificate,
 			Set<Evaluation> evaluations, Set<Profession> professions) {
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -59,9 +76,17 @@ public class User {
 		this.evaluationOfCertificate = evaluationOfCertificate;
 		this.evaluations = evaluations;
 		this.professions = professions;
+		this.role = role;
+	}
+	
+	public User(String firstName, String lastName, String email, UserRole role) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.role = role;
 	}
 
-	public User(int id, String firstName, String lastName, String email, UserStatus status, int evaluationOfCertificate,
+	public User(int id, String firstName, String lastName, String email, UserStatus status, UserRole role, int evaluationOfCertificate,
 			Set<Evaluation> evaluations, Set<Profession> professions) {
 		this.id = id;
 		this.firstName = firstName;
@@ -71,6 +96,7 @@ public class User {
 		this.evaluationOfCertificate = evaluationOfCertificate;
 		this.evaluations = evaluations;
 		this.professions = professions;
+		this.role = role;
 	}
 
 	public int getId() {
@@ -112,6 +138,15 @@ public class User {
 	public void setStatus(UserStatus status) {
 		this.status = status;
 	}
+	
+
+	public UserRole getRole() {
+		return role;
+	}
+
+	public void setRole(UserRole role) {
+		this.role = role;
+	}
 
 	public int getEvaluationOfCertificate() {
 		return evaluationOfCertificate;
@@ -148,6 +183,7 @@ public class User {
 		result = prime * result + id;
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((professions == null) ? 0 : professions.hashCode());
+		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		return result;
 	}
@@ -190,6 +226,8 @@ public class User {
 				return false;
 		} else if (!professions.equals(other.professions))
 			return false;
+		if (role != other.role)
+			return false;
 		if (status != other.status)
 			return false;
 		return true;
@@ -198,8 +236,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", status=" + status + ", evaluationOfCertificate=" + evaluationOfCertificate + ", evaluations="
-				+ evaluations + ", professions=" + professions + "]";
+				+ ", status=" + status + ", role=" + role + ", evaluationOfCertificate=" + evaluationOfCertificate
+				+ ", evaluations=" + evaluations + ", professions=" + professions + "]";
 	}
-	
 }
