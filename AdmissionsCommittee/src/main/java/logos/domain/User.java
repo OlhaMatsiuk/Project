@@ -37,6 +37,11 @@ public class User {
 	private String email;
 	
 	@Column
+	private String password;
+	
+	private String passwordConfirm;
+	
+	@Column
 	private UserStatus status;
 	
 	@Enumerated(EnumType.STRING)
@@ -60,6 +65,7 @@ public class User {
 		this.firstName = user.getFirstName();
 		this.lastName = user.getLastName();
 		this.email = user.getEmail();
+		this.password = user.getPassword();
 		this.status = user.getStatus();
 		this.evaluationOfCertificate = user.getEvaluationOfCertificate();
 		this.evaluations = user.getEvaluations();
@@ -67,11 +73,12 @@ public class User {
 		this.role = user.getRole();
 	}
 
-	public User(String firstName, String lastName, String email, UserStatus status, UserRole role,  int evaluationOfCertificate,
+	public User(String firstName, String lastName, String email, String password, UserStatus status, UserRole role,  int evaluationOfCertificate,
 			Set<Evaluation> evaluations, Set<Profession> professions) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.password = password;
 		this.status = status;
 		this.evaluationOfCertificate = evaluationOfCertificate;
 		this.evaluations = evaluations;
@@ -79,19 +86,21 @@ public class User {
 		this.role = role;
 	}
 	
-	public User(String firstName, String lastName, String email, UserRole role) {
+	public User(String firstName, String lastName, String email,String password, UserRole role) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.password = password;
 		this.role = role;
 	}
 
-	public User(int id, String firstName, String lastName, String email, UserStatus status, UserRole role, int evaluationOfCertificate,
+	public User(int id, String firstName, String lastName, String email,String password,  UserStatus status, UserRole role, int evaluationOfCertificate,
 			Set<Evaluation> evaluations, Set<Profession> professions) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.password = password;
 		this.status = status;
 		this.evaluationOfCertificate = evaluationOfCertificate;
 		this.evaluations = evaluations;
@@ -130,6 +139,24 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
+	}
+	
 
 	public UserStatus getStatus() {
 		return status;
@@ -182,6 +209,7 @@ public class User {
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((professions == null) ? 0 : professions.hashCode());
 		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
@@ -221,6 +249,11 @@ public class User {
 				return false;
 		} else if (!lastName.equals(other.lastName))
 			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
 		if (professions == null) {
 			if (other.professions != null)
 				return false;
@@ -236,7 +269,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", status=" + status + ", role=" + role + ", evaluationOfCertificate=" + evaluationOfCertificate
-				+ ", evaluations=" + evaluations + ", professions=" + professions + "]";
+				+ ", password=" + password + ", status=" + status + ", role=" + role + ", evaluationOfCertificate="
+				+ evaluationOfCertificate + ", evaluations=" + evaluations + ", professions=" + professions + "]";
 	}
 }

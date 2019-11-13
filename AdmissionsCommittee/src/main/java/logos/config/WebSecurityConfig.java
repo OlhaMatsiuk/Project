@@ -35,23 +35,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+	
+	http.authorizeRequests()
+		.antMatchers("/").permitAll()
+		.antMatchers("/home").hasAnyAuthority("USER", "ADMIN")
+		.anyRequest().permitAll()
 		
-		http.authorizeRequests()
-			.antMatchers("/", "/registration", "/home").permitAll()
-			//.antMatchers("/home").access("hasRole('USER')").anyRequest().permitAll()
-		.and()
-			.formLogin()
-			.loginPage("/login")
-			.defaultSuccessUrl("/home")
-			.usernameParameter("email")
-		.and()
-			.logout()
-			.logoutSuccessUrl("/login?logout")
-		.and()
-			.exceptionHandling()
-			.accessDeniedPage("/403")
-		.and()
-			.csrf();
-	}	
+	.and()
+		.formLogin().loginPage("/login")
+		.defaultSuccessUrl("/home").usernameParameter("email").passwordParameter("password")
+	.and()
+		.logout().logoutSuccessUrl("/login?logout")
+	.and()
+		.exceptionHandling().accessDeniedPage("/403")
+	.and()
+		.csrf();
+	}
 	
 }

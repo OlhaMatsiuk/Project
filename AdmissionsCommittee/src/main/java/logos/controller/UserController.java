@@ -5,70 +5,61 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
-import logos.dao.UserRepository;
 import logos.domain.User;
-import logos.domain.UserRole;
+import logos.service.UserService;
 
 @Controller
 public class UserController {
 
 	@Autowired
-	private UserRepository userRepository;
+    private UserService userService;
 
-	@RequestMapping(value = "/registration", method = RequestMethod.GET)
-	public String registration(Model model) {
-		model.addAttribute("userForm", new User());
 
-		return "registration";
-	}
 
-	@RequestMapping(value = "/registration", method = RequestMethod.POST)
-	public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model,
-			String email, String firstName) {
+    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+    public String registration(Model model) {
+        model.addAttribute("userForm", new User());
 
-		if (bindingResult.hasErrors()) {
-			return "registration";
-		}
+        return "registration";
+    }
 
-		userForm.setEmail(email);
-		userForm.setFirstName(firstName);
-		userForm.setRole(UserRole.USER);
-		userRepository.save(userForm);
-		
-		model.addAttribute("pass", "You id = " + userForm.getId() + ", this is your password!");
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
 
-		return  "redirect:/login";
-	}
+        if (bindingResult.hasErrors()) {
+            return "registration";
+        }
+        userService.save(userForm);
 
-	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
-	public String loginPage(Model model) {
-		return "login";
-	}
 
-	@PostMapping(value = "/home")
-	public String login(Model model, @RequestParam String email, @RequestParam String password) {
-	
-		User user = userRepository.findByEmail(email);
-		
-		int id = Integer.parseInt(password);
-		
-		if(user!= null && user.getId() == id) {
-			model.addAttribute("name", user.getFirstName());
-			return "home";
-		}
-		return "redirect:/login";
-	}
+        return "redirect:/home";
+    }
 
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String welcome(@ModelAttribute("name") String name, Model model) {
+    @RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
+    public String login(Model model, String error, String logout) {
+        if (error != null)
+            model.addAttribute("error", "Your username and password is invalid.");
 
-		model.addAttribute("name", name);
-		return "home";
-	}
+        if (logout != null)
+            model.addAttribute("message", "You have been logged out successfully.");
+
+        return "login";
+    }
+
+    @RequestMapping(value ="/home", method = RequestMethod.GET)
+   	public ModelAndView welcome() {
+   		ModelAndView map = new ModelAndView("home");
+   		//map.addObject("periodicals", .periodicalsServicegetAllPeriodicals());
+   		
+   		
+
+   		return map;
+   	}
+    
+    
 
 }
