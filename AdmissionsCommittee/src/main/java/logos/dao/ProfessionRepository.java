@@ -8,5 +8,5 @@ import logos.domain.Profession;
 
 public interface ProfessionRepository extends JpaRepository<Profession, Integer>{
 	List<Profession> findById(int id);
-	List<Profession> findByName(String email);
+	List<Profession> findByName(String name);
 }

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Faculty</title>
+<title>Profession</title>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
@@ -13,17 +13,16 @@
 	<div class="container">
 
 
-	<!-- Sidebar -->
+		<!-- Sidebar -->
 		<div class="w3-sidebar w3-light-grey w3-bar-block" style="width: 10%">
 			<h3 class="w3-bar-item">||</h3>
-			<a href="/home" class="w3-bar-item w3-button">Home</a>
-			 <a href="#" class="w3-bar-item w3-button">Rating</a>
-			 <a href="/faculty"	class="w3-bar-item w3-button">Create faculty</a> 
-			 <a href="/profession" class="w3-bar-item w3-button">Create profession</a> 
-			 <a href="#"class="w3-bar-item w3-button">Create an application</a>
+			<a href="/home" class="w3-bar-item w3-button">Home</a> <a href="#"
+				class="w3-bar-item w3-button">Rating</a> <a href="/faculty"
+				class="w3-bar-item w3-button">Create faculty</a> <a
+				href="/profession" class="w3-bar-item w3-button">Create
+				profession</a> <a href="#" class="w3-bar-item w3-button">Create an
+				application</a>
 		</div>
-
-
 
 
 		<!-- Page Content -->
@@ -46,24 +45,42 @@
 				</c:if>
 
 				<div>
-					<form:form method="POST" action="${contextPath}/addFaculty"
-						modelAttribute="faculty">
-							
+					<form:form method="POST" action="${contextPath}/addProf"
+						modelAttribute="profession">
+
 						<table>
+
+
+							<tr>
+								<td><form:label path="faculty">Faculty</form:label></td>
+								<td><form:select path="faculty">
+
+										<c:forEach items="${faculties}" var="curFaculty">
+											<form:option value="${curFaculty.id} "> ${curFaculty.name}</form:option>
+										</c:forEach>
+
+									</form:select></td>
+							</tr>
+
 							<tr>
 								<td><form:label path="name">Name</form:label></td>
 								<td><form:input path="name" /></td>
 							</tr>
 							<tr>
+								<td><form:label path="planOfStudent">Plan of student</form:label></td>
+								<td><form:input path="planOfStudent" /></td>
+							</tr>
+
+							<tr>
 								<td><input type="submit" value="Submit" /></td>
 							</tr>
 						</table>
-					
+
 						<input type="hidden" name="${_csrf.parameterName}"
 							value="${_csrf.token}" />
 					</form:form>
-					
-					<span>${message}</span>	
+
+					<span>${message}</span>
 
 				</div>
 			</div>

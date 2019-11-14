@@ -28,10 +28,10 @@ public class Profession {
 	private String name;
 	
 	@Column
-	private int planOfstudent;
+	private int planOfStudent;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "faculty_id", nullable = false)
+	@JoinColumn(name = "profession_of_faculty", nullable = false)
 	private Faculty faculty;
 	
 	@ManyToMany(mappedBy = "professions")
@@ -41,15 +41,20 @@ public class Profession {
 
 	public Profession(String name, int planOfstudent, Faculty faculty, Set<User> users) {
 		this.name = name;
-		this.planOfstudent = planOfstudent;
+		this.planOfStudent = planOfstudent;
 		this.faculty = faculty;
 		this.users = users;
+	}
+	public Profession(String name, int planOfstudent, Faculty faculty) {
+		this.name = name;
+		this.planOfStudent = planOfstudent;
+		this.faculty = faculty;
 	}
 
 	public Profession(int id, String name, int planOfstudent, Faculty faculty, Set<User> users) {
 		this.id = id;
 		this.name = name;
-		this.planOfstudent = planOfstudent;
+		this.planOfStudent = planOfstudent;
 		this.faculty = faculty;
 		this.users = users;
 	}
@@ -70,12 +75,12 @@ public class Profession {
 		this.name = name;
 	}
 
-	public int getPlanOfstudent() {
-		return planOfstudent;
+	public int getPlanOfStudent() {
+		return planOfStudent;
 	}
 
-	public void setPlanOfstudent(int planOfstudent) {
-		this.planOfstudent = planOfstudent;
+	public void setPlanOfStudent(int planOfStudent) {
+		this.planOfStudent = planOfStudent;
 	}
 
 	public Faculty getFaculty() {
@@ -101,7 +106,7 @@ public class Profession {
 		result = prime * result + ((faculty == null) ? 0 : faculty.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + planOfstudent;
+		result = prime * result + planOfStudent;
 		result = prime * result + ((users == null) ? 0 : users.hashCode());
 		return result;
 	}
@@ -127,7 +132,7 @@ public class Profession {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (planOfstudent != other.planOfstudent)
+		if (planOfStudent != other.planOfStudent)
 			return false;
 		if (users == null) {
 			if (other.users != null)
@@ -139,7 +144,7 @@ public class Profession {
 
 	@Override
 	public String toString() {
-		return "Profession [id=" + id + ", name=" + name + ", planOfstudent=" + planOfstudent + ", faculty=" + faculty
+		return "Profession [id=" + id + ", name=" + name + ", planOfstudent=" + planOfStudent + ", faculty=" + faculty
 				+ ", users=" + users + "]";
 	}
 }
