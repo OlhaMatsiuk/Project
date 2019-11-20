@@ -1,11 +1,12 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Profession</title>
+<title>Information</title>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
@@ -29,10 +30,6 @@
 		<!-- Page Content -->
 		<div style="margin-left: 10%">
 
-			<!-- 	<div class="w3-container w3-teal">
-				<h1>Rating</h1>
-			</div> -->
-
 			<div class="w3-container">
 
 				<c:if test="${pageContext.request.userPrincipal.name != null}">
@@ -44,46 +41,34 @@
 						<a onclick="document.forms['logoutForm'].submit()">LogOut</a>
 					</h2>
 				</c:if>
-
+<!-- --------------------------------------------------------------------------------- -->
 				<div>
-					<form:form method="POST" action="${contextPath}/addProf"
-						modelAttribute="profession">
+					<form:form method="POST" action="${contextPath}/addInformationCertifiacate" modelAttribute = "user">
 
 						<table>
-
-
+				
 							<tr>
-								<td><form:label path="faculty">Faculty</form:label></td>
-								<td><form:select path="faculty">
-
-										<c:forEach items="${faculties}" var="curFaculty">
-											<form:option value="${curFaculty.id} "> ${curFaculty.name}</form:option>
-										</c:forEach>
-
-									</form:select></td>
-							</tr>
-
-							<tr>
-								<td><form:label path="name">Name</form:label></td>
-								<td><form:input path="name" /></td>
-							</tr>
-							<tr>
-								<td><form:label path="planOfStudent">Plan of student</form:label></td>
-								<td><form:input path="planOfStudent" /></td>
+								<td><form:label path="evaluationOfCertificate">Evaluation of Certificate</form:label></td>
+								<td><form:input path="evaluationOfCertificate"/>
+								<td><form:input type="hidden" path="email" value = "${pageContext.request.userPrincipal.name}"/>
+									
 							</tr>
 
 							<tr>
 								<td><input type="submit" value="Submit" /></td>
 							</tr>
 						</table>
+						
 
 						<input type="hidden" name="${_csrf.parameterName}"
 							value="${_csrf.token}" />
 					</form:form>
 
-					<span>${message}</span>
-
 				</div>
+				
+				
+<!-- --------------------------------------------------------------------------------- -->	
+				
 			</div>
 
 		</div>

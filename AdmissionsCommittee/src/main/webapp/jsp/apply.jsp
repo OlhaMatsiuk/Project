@@ -29,9 +29,6 @@
 		<!-- Page Content -->
 		<div style="margin-left: 10%">
 
-			<!-- 	<div class="w3-container w3-teal">
-				<h1>Rating</h1>
-			</div> -->
 
 			<div class="w3-container">
 
@@ -46,31 +43,28 @@
 				</c:if>
 
 				<div>
-					<form:form method="POST" action="${contextPath}/addProf"
-						modelAttribute="profession">
+					<form:form method="POST" action="${contextPath}/addBid"
+						modelAttribute="user">
 
 						<table>
 
 
 							<tr>
-								<td><form:label path="faculty">Faculty</form:label></td>
-								<td><form:select path="faculty">
+								<td><form:label path="profession">Profession</form:label></td>
+								<td><form:select path="profession">
 
-										<c:forEach items="${faculties}" var="curFaculty">
-											<form:option value="${curFaculty.id} "> ${curFaculty.name}</form:option>
+										<c:forEach items="${prof}" var="curProf">
+											<form:option value="${curProf.id} "> ${curProf.name}</form:option>
 										</c:forEach>
 
 									</form:select></td>
+									
 							</tr>
 
-							<tr>
-								<td><form:label path="name">Name</form:label></td>
-								<td><form:input path="name" /></td>
-							</tr>
-							<tr>
+						<%-- 	<tr>
 								<td><form:label path="planOfStudent">Plan of student</form:label></td>
 								<td><form:input path="planOfStudent" /></td>
-							</tr>
+							</tr> --%>
 
 							<tr>
 								<td><input type="submit" value="Submit" /></td>

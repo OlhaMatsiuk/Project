@@ -107,6 +107,8 @@ public class User {
 		this.professions = professions;
 		this.role = role;
 	}
+	
+	
 
 	public int getId() {
 		return id;
