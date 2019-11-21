@@ -44,49 +44,23 @@
 				</c:if>
 <!-- ------------------------------------------------------------------------------------------ -->
 				
-				<c:set var="val" value="${security}" />
-				<c:if test="${val != null}">
-				<div>
-					<form:form method="POST" action="${contextPath}/addBid"
-						modelAttribute="profession">
-
-						<table>
-
-
-							<tr>
-								<td><form:label path="id">Profession</form:label></td>
-								<td><form:select path="id">
-
-										<c:forEach items="${prof}" var="curProf">
-											<form:option value="${curProf.id} "> ${curProf.name}</form:option>
-										</c:forEach>
-
-									</form:select></td>
-									
-							</tr>
-
-							<tr>
-								<td><input type="submit" value="Submit" /></td>
-							</tr>
-						</table>
-
-						<input type="hidden" name="${_csrf.parameterName}"
-							value="${_csrf.token}" />
-					</form:form>
-
-					<c:forEach items="${profGod}" var="curProf2">
-						<h5> ${curProf2.name} </h5>
-					</c:forEach>
-
-				</div>
 				
-				</c:if>
-				
-				<c:if test="${val == null}">   
-				
-					<h4> <a href="/information">Add ALL information</a></h4>
+				<c:forEach items="${list}" var="list">
+					 <div style="with: 10%; height: 10%";">
+				 
+				 		<h5>First name: ${list.firstName} </h5>
+				 		<h5>Last name:  ${list.lastName} </h5>
+				 		
+				 		<c:forEach items="${list.professions}" var="prof">
+				 			<h5>Profession: ${prof.name} </h5>
+				 		</c:forEach>
 					
-				</c:if>
+				 		<h4> ${list.status} </h4>
+				 		
+				 		<h3>----------------------</h3>
+				 
+				 	</div> 
+				</c:forEach>
 				
 <!-- ------------------------------------------------------------------------------------------ -->
 			</div>

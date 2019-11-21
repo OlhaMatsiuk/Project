@@ -157,6 +157,17 @@ public class FacultyAndSpecialization {
 			}
 		}
 		
+		Set<Evaluation> setEv = userUp.getEvaluations();
+		int i = 0;
+		
+		for (Evaluation evaluation : setEv) {
+			if(evaluation.getEvaluation() > 0)
+				i++;
+		}
+		
+		if(userUp.getEvaluationOfCertificate()>0 && i==3)
+			model.addObject("security", 1);
+		
 		
 		model.addObject("prof", listProfession);
 		model.addObject("profGod", listProfession2);

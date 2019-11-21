@@ -76,16 +76,16 @@ public class Evaluation {
 		this.user = user;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + evaluation;
-		result = prime * result + id;
-		result = prime * result + ((nameSubject == null) ? 0 : nameSubject.hashCode());
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
-		return result;
-	}
+//	@Override
+//	public int hashCode() {
+//		final int prime = 31;
+//		int result = 1;
+//		result = prime * result + evaluation;
+//		result = prime * result + id;
+//		result = prime * result + ((nameSubject == null) ? 0 : nameSubject.hashCode());
+//		result = prime * result + ((user == null) ? 0 : user.hashCode());
+//		return result;
+//	}
 
 	@Override
 	public boolean equals(Object obj) {

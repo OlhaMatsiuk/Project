@@ -200,23 +200,23 @@ public class User {
 	public void setProfessions(Set<Profession> professions) {
 		this.professions = professions;
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + evaluationOfCertificate;
-		result = prime * result + ((evaluations == null) ? 0 : evaluations.hashCode());
-		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result + id;
-		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((professions == null) ? 0 : professions.hashCode());
-		result = prime * result + ((role == null) ? 0 : role.hashCode());
-		result = prime * result + ((status == null) ? 0 : status.hashCode());
-		return result;
-	}
+//
+//	@Override
+//	public int hashCode() {
+//		final int prime = 31;
+//		int result = 1;
+//		result = prime * result + ((email == null) ? 0 : email.hashCode());
+//		result = prime * result + evaluationOfCertificate;
+//		result = prime * result + ((evaluations == null) ? 0 : evaluations.hashCode());
+//		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+//		result = prime * result + id;
+//		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+//		result = prime * result + ((password == null) ? 0 : password.hashCode());
+//		result = prime * result + ((professions == null) ? 0 : professions.hashCode());
+//		result = prime * result + ((role == null) ? 0 : role.hashCode());
+//		result = prime * result + ((status == null) ? 0 : status.hashCode());
+//		return result;
+//	}
 
 	@Override
 	public boolean equals(Object obj) {
