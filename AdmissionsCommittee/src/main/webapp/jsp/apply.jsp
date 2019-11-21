@@ -41,17 +41,17 @@
 						<a onclick="document.forms['logoutForm'].submit()">LogOut</a>
 					</h2>
 				</c:if>
-
+<!-- ------------------------------------------------------------------------------------------ -->
 				<div>
 					<form:form method="POST" action="${contextPath}/addBid"
-						modelAttribute="user">
+						modelAttribute="profession">
 
 						<table>
 
 
 							<tr>
-								<td><form:label path="profession">Profession</form:label></td>
-								<td><form:select path="profession">
+								<td><form:label path="id">Profession</form:label></td>
+								<td><form:select path="id">
 
 										<c:forEach items="${prof}" var="curProf">
 											<form:option value="${curProf.id} "> ${curProf.name}</form:option>
@@ -60,11 +60,6 @@
 									</form:select></td>
 									
 							</tr>
-
-						<%-- 	<tr>
-								<td><form:label path="planOfStudent">Plan of student</form:label></td>
-								<td><form:input path="planOfStudent" /></td>
-							</tr> --%>
 
 							<tr>
 								<td><input type="submit" value="Submit" /></td>
@@ -75,9 +70,13 @@
 							value="${_csrf.token}" />
 					</form:form>
 
-					<span>${message}</span>
+					<c:forEach items="${profGod}" var="curProf2">
+						<h5> ${curProf2.name} </h5>
+					</c:forEach>
 
 				</div>
+				
+<!-- ------------------------------------------------------------------------------------------ -->
 			</div>
 
 		</div>

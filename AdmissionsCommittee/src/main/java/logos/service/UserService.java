@@ -1,14 +1,18 @@
 package logos.service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import logos.dao.UserRepository;
+import logos.domain.Profession;
 import logos.domain.User;
 import logos.domain.UserRole;
+import logos.domain.UserStatus;
 
 @Service
 public class UserService {
@@ -39,6 +43,16 @@ public class UserService {
 	}
 	public List<User> getAllUsers(){
 		return userRepository.findAll();
+	}
+	
+	public void apply(User user, Profession prof) {
+		
+		Set<Profession> set = user.getProfessions();
+		set.add(prof);
+		user.setStatus(UserStatus.Review);
+		user.setProfessions(set);
+		update(user);
+		
 	}
 
 

@@ -97,19 +97,8 @@ public class Profession {
 
 	public void setUsers(Set<User> users) {
 		this.users = users;
-	}
+	}	
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((faculty == null) ? 0 : faculty.hashCode());
-		result = prime * result + id;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + planOfStudent;
-		result = prime * result + ((users == null) ? 0 : users.hashCode());
-		return result;
-	}
 
 	@Override
 	public boolean equals(Object obj) {

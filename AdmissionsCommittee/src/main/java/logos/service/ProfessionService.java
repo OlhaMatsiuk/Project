@@ -1,6 +1,7 @@
 package logos.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,5 +21,9 @@ public class ProfessionService {
 	
 	public List<Profession> getAllProfession(){
 		return professionRepository.findAll();
+	}
+	
+	public Optional<Profession> findById(int id){
+		return professionRepository.findById(id);
 	}
 }
