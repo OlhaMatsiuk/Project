@@ -12,54 +12,65 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import logos.dao.UserRepository;
+import logos.domain.Rating;
 import logos.domain.User;
 import logos.domain.UserStatus;
+import logos.service.RatingService;
 import logos.service.UserService;
 
 @Controller
 public class NewApp {
 	
-	@Autowired
-	private UserService userService;
 	
 	@Autowired
-	private UserRepository userRepository;
+	private RatingService ratingService;
 	
 	@RequestMapping(value = "/newApp", method = RequestMethod.GET)
 	public ModelAndView newApp() {
 		
 		ModelAndView model = new ModelAndView();
-		List<User> list = userService.getAllUsers();
-		List<User> listNew = new ArrayList<User>();
+			
+		List<Rating> rating = ratingService.getAll();
+		List<Rating> ratingnNew =  new ArrayList<>();
 		
-		for (User user : list) {
-			if(user.getStatus() == UserStatus.Review)
-				listNew.add(user);
+		
+		for (Rating rating2 : rating) {
+			if(rating2.getStatus() == UserStatus.Review)
+				ratingnNew.add(rating2);
 		}
 		
-		model.addObject("list", listNew);
+	
+		model.addObject("rating", ratingnNew);
 
 		return model;
 	}
 	
 	@RequestMapping(value = "/allowApply", method = RequestMethod.POST)
-	public String allowApply(@RequestParam("userID") int id)  {
+	public String allowApply(@RequestParam("userID") int id, @RequestParam("profID") int idp)  {
 
-		User userUp = userRepository.findById(id);
+		List<Rating> listU = ratingService.getByUserId(id);
 		
-		userUp.setStatus(UserStatus.Allowed);
-		userService.update(userUp);
+		for (Rating rating : listU) {
+			if(rating.getProfession().getId() == idp) {
+				rating.setStatus(UserStatus.Allowed);
+				ratingService.update(rating);
+			}
+		}
 
 		return "redirect:/newApp";
 	}
 	
 	@RequestMapping(value = "/notAllowApply", method = RequestMethod.POST)
-	public String notAllowApply(@RequestParam("userID") int id)  {
+	public String notAllowApply(@RequestParam("userID") int id, @RequestParam("profID") int idp)  {
 
-		User userUp = userRepository.findById(id);
+		List<Rating> listU = ratingService.getByUserId(id);
 		
-		userUp.setStatus(UserStatus.NotAllowed);
-		userService.update(userUp);
+		for (Rating rating : listU) {
+			if(rating.getProfession().getId() == idp) {
+				rating.setStatus(UserStatus.NotAllowed);
+				ratingService.update(rating);
+			}
+		}
 
 		return "redirect:/newApp";
 	}

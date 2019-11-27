@@ -24,6 +24,7 @@ import logos.domain.Profession;
 import logos.domain.User;
 import logos.service.FacultyService;
 import logos.service.ProfessionService;
+import logos.service.RatingService;
 import logos.service.UserService;
 
 @Controller
@@ -37,6 +38,8 @@ public class FacultyAndSpecialization {
 	private UserRepository userRepository;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private RatingService ratingService;
 
 	@RequestMapping(value = "/faculty", method = RequestMethod.GET)
 	public String faculty(Model model) {
@@ -86,7 +89,7 @@ public class FacultyAndSpecialization {
 		User userUp = userRepository.findByEmail(principal.getName()).get();
 		
 		List<Profession> listProfession = professionService.getAllProfession();
-		Set<Profession> setProfession = userUp.getProfessions();
+		List<Profession> setProfession = ratingService.getAllProfByUser(userUp);
 		List<Profession> listProfession2 = new ArrayList<Profession>();
 		
 		for (Profession profession : listProfession) {
@@ -96,6 +99,8 @@ public class FacultyAndSpecialization {
 					listProfession2.add(profession1);
 			}
 		}
+		
+		
 		
 		Set<Evaluation> setEv = userUp.getEvaluations();
 		int i = 0;
@@ -125,7 +130,7 @@ public class FacultyAndSpecialization {
 		Profession profession = professionService.findById(prof.getId()).get();
 		
 		
-		userService.apply(userUp, profession);
+		ratingService.apply(userUp, profession);
 		
 		return "redirect:/apply";
 	}

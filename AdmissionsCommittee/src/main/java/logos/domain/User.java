@@ -12,10 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -42,12 +39,9 @@ public class User {
 	
 	private String passwordConfirm;
 	
-	@Column
-	private UserStatus status;
-	
 	@Enumerated(EnumType.STRING)
 	private UserRole role;
-	
+		
 	@Column
 	private int evaluationOfCertificate;
 	
@@ -55,15 +49,11 @@ public class User {
     @Column(nullable = false)
 	private Set<Evaluation> evaluations = new HashSet<Evaluation>();
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "rating", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "profession_id"))
-	private Set<Profession> professions = new HashSet<Profession>();
-	
 	@Lob
 	private String encodedImage;
-
 	
-	public User() {}
+	
+public User() {}
 	
 	public User(User user) {
 		this.id = user.getId();
@@ -71,23 +61,19 @@ public class User {
 		this.lastName = user.getLastName();
 		this.email = user.getEmail();
 		this.password = user.getPassword();
-		this.status = user.getStatus();
 		this.evaluationOfCertificate = user.getEvaluationOfCertificate();
 		this.evaluations = user.getEvaluations();
-		this.professions = user.getProfessions();
 		this.role = user.getRole();
 	}
 
-	public User(String firstName, String lastName, String email, String password, UserStatus status, UserRole role,  int evaluationOfCertificate,
-			Set<Evaluation> evaluations, Set<Profession> professions) {
+	public User(String firstName, String lastName, String email, String password, UserRole role,  int evaluationOfCertificate,
+			Set<Evaluation> evaluations) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
-		this.status = status;
 		this.evaluationOfCertificate = evaluationOfCertificate;
 		this.evaluations = evaluations;
-		this.professions = professions;
 		this.role = role;
 	}
 	
@@ -99,17 +85,15 @@ public class User {
 		this.role = role;
 	}
 
-	public User(int id, String firstName, String lastName, String email,String password,  UserStatus status, UserRole role, int evaluationOfCertificate,
-			Set<Evaluation> evaluations, Set<Profession> professions) {
+	public User(int id, String firstName, String lastName, String email,String password, UserRole role, int evaluationOfCertificate,
+			Set<Evaluation> evaluations) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
-		this.status = status;
 		this.evaluationOfCertificate = evaluationOfCertificate;
 		this.evaluations = evaluations;
-		this.professions = professions;
 		this.role = role;
 	}
 	
@@ -119,119 +103,119 @@ public class User {
 		return id;
 	}
 
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 
 	public String getFirstName() {
 		return firstName;
 	}
 
+
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
+
 
 	public String getLastName() {
 		return lastName;
 	}
 
+
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
 
 	public String getEmail() {
 		return email;
 	}
 
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 
 	public String getPassword() {
 		return password;
 	}
 
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
+
 	public String getPasswordConfirm() {
 		return passwordConfirm;
 	}
 
+
 	public void setPasswordConfirm(String passwordConfirm) {
 		this.passwordConfirm = passwordConfirm;
 	}
-	
 
-	public UserStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(UserStatus status) {
-		this.status = status;
-	}
-	
-
-	public UserRole getRole() {
-		return role;
-	}
-
-	public void setRole(UserRole role) {
-		this.role = role;
-	}
 
 	public int getEvaluationOfCertificate() {
 		return evaluationOfCertificate;
 	}
 
+
 	public void setEvaluationOfCertificate(int evaluationOfCertificate) {
 		this.evaluationOfCertificate = evaluationOfCertificate;
 	}
+
 
 	public Set<Evaluation> getEvaluations() {
 		return evaluations;
 	}
 
+
 	public void setEvaluations(Set<Evaluation> evaluations) {
 		this.evaluations = evaluations;
 	}
 
-	public Set<Profession> getProfessions() {
-		return professions;
-	}
-
-	public void setProfessions(Set<Profession> professions) {
-		this.professions = professions;
-	}
-	
-	
-//
-//	@Override
-//	public int hashCode() {
-//		final int prime = 31;
-//		int result = 1;
-//		result = prime * result + ((email == null) ? 0 : email.hashCode());
-//		result = prime * result + evaluationOfCertificate;
-//		result = prime * result + ((evaluations == null) ? 0 : evaluations.hashCode());
-//		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-//		result = prime * result + id;
-//		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-//		result = prime * result + ((password == null) ? 0 : password.hashCode());
-//		result = prime * result + ((professions == null) ? 0 : professions.hashCode());
-//		result = prime * result + ((role == null) ? 0 : role.hashCode());
-//		result = prime * result + ((status == null) ? 0 : status.hashCode());
-//		return result;
-//	}
 
 	public String getEncodedImage() {
 		return encodedImage;
 	}
 
+
 	public void setEncodedImage(String encodedImage) {
 		this.encodedImage = encodedImage;
 	}
+
+
+	public UserRole getRole() {
+		return role;
+	}
+
+
+	public void setRole(UserRole role) {
+		this.role = role;
+	}
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((encodedImage == null) ? 0 : encodedImage.hashCode());
+		result = prime * result + evaluationOfCertificate;
+		result = prime * result + ((evaluations == null) ? 0 : evaluations.hashCode());
+		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + id;
+		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((passwordConfirm == null) ? 0 : passwordConfirm.hashCode());
+		result = prime * result + ((role == null) ? 0 : role.hashCode());
+		return result;
+	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -246,6 +230,11 @@ public class User {
 			if (other.email != null)
 				return false;
 		} else if (!email.equals(other.email))
+			return false;
+		if (encodedImage == null) {
+			if (other.encodedImage != null)
+				return false;
+		} else if (!encodedImage.equals(other.encodedImage))
 			return false;
 		if (evaluationOfCertificate != other.evaluationOfCertificate)
 			return false;
@@ -271,22 +260,23 @@ public class User {
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
-		if (professions == null) {
-			if (other.professions != null)
+		if (passwordConfirm == null) {
+			if (other.passwordConfirm != null)
 				return false;
-		} else if (!professions.equals(other.professions))
+		} else if (!passwordConfirm.equals(other.passwordConfirm))
 			return false;
 		if (role != other.role)
-			return false;
-		if (status != other.status)
 			return false;
 		return true;
 	}
 
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", password=" + password + ", status=" + status + ", role=" + role + ", evaluationOfCertificate="
-				+ evaluationOfCertificate + ", evaluations=" + evaluations + ", professions=" + professions + "]";
+				+ ", password=" + password + ", passwordConfirm=" + passwordConfirm + ", evaluationOfCertificate="
+				+ evaluationOfCertificate + ", evaluations=" + evaluations + ", encodedImage=" + encodedImage
+				+ ", role=" + role + "]";
 	}
+	
 }

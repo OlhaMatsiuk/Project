@@ -44,23 +44,21 @@
 				<!-- ------------------------------------------------------------------------------------------ -->
 
 
-				<c:forEach items="${list}" var="list">
+				<c:forEach items="${rating}" var="rating">
 					<div style="with: 10%; height: 10%">
 
 
-						<img alt="image" src="data:image/jpg;base64,${list.encodedImage}" style="width: 10%">
-						<h5>First name: ${list.firstName}</h5>
-						<h5>Last name: ${list.lastName}</h5>
-
-						<c:forEach items="${list.professions}" var="prof">
-							<h5>Profession: ${prof.name}</h5>
-							
-						</c:forEach>
+						<img alt="image" src="data:image/jpg;base64,${rating.user.encodedImage}" style="width: 10%">
+						<h5>First name: ${rating.user.firstName}</h5>
+						<h5>Last name: ${rating.user.lastName}</h5>
+			 			<h5>Profession: ${rating.profession.name}</h5>
+						
 						
 						<form id="logoutForm" method="POST"
 								action="${contextPath}/allowApply">
 								
-								<input type="hidden" name="userID" value="${list.id}">
+								<input type="hidden" name="userID" value="${rating.user.id}">
+								<input type="hidden" name="profID" value="${rating.profession.id}">
 								<input type="submit" value="Allow!">
 								
 								<input type="hidden" name="${_csrf.parameterName}"
@@ -70,7 +68,8 @@
 						<form id="logoutForm" method="POST"
 								action="${contextPath}/notAllowApply">
 								
-								<input type="hidden" name="userID" value="${list.id}">
+								<input type="hidden" name="userID" value="${rating.user.id}">
+								<input type="hidden" name="profID" value="${rating.profession.id}">
 								<input type="submit" value="Not Allow!">
 								
 								<input type="hidden" name="${_csrf.parameterName}"

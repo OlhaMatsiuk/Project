@@ -1,8 +1,5 @@
 package logos.domain;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,12 +7,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "professions")
+@Table(name = "profession")
 public class Profession {
 
 
@@ -34,29 +30,21 @@ public class Profession {
 	@JoinColumn(name = "profession_of_faculty", nullable = false)
 	private Faculty faculty;
 	
-	@ManyToMany(mappedBy = "professions")
-	private Set<User> users = new HashSet<>();
 	
 	public Profession() {}
 
-	public Profession(String name, int planOfstudent, Faculty faculty, Set<User> users) {
-		this.name = name;
-		this.planOfStudent = planOfstudent;
-		this.faculty = faculty;
-		this.users = users;
-	}
 	public Profession(String name, int planOfstudent, Faculty faculty) {
 		this.name = name;
 		this.planOfStudent = planOfstudent;
 		this.faculty = faculty;
+		
 	}
 
-	public Profession(int id, String name, int planOfstudent, Faculty faculty, Set<User> users) {
+	public Profession(int id, String name, int planOfstudent, Faculty faculty) {
 		this.id = id;
 		this.name = name;
 		this.planOfStudent = planOfstudent;
 		this.faculty = faculty;
-		this.users = users;
 	}
 
 	public int getId() {
@@ -91,14 +79,19 @@ public class Profession {
 		this.faculty = faculty;
 	}
 
-	public Set<User> getUsers() {
-		return users;
-	}
 
-	public void setUsers(Set<User> users) {
-		this.users = users;
-	}	
 
+//
+//	@Override
+//	public int hashCode() {
+//		final int prime = 31;
+//		int result = 1;
+//		result = prime * result + ((faculty == null) ? 0 : faculty.hashCode());
+//		result = prime * result + id;
+//		result = prime * result + ((name == null) ? 0 : name.hashCode());
+//		result = prime * result + planOfStudent;
+//		return result;
+//	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -123,17 +116,12 @@ public class Profession {
 			return false;
 		if (planOfStudent != other.planOfStudent)
 			return false;
-		if (users == null) {
-			if (other.users != null)
-				return false;
-		} else if (!users.equals(other.users))
-			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
 		return "Profession [id=" + id + ", name=" + name + ", planOfstudent=" + planOfStudent + ", faculty=" + faculty
-				+ ", users=" + users + "]";
+				+ "]";
 	}
 }

@@ -43,16 +43,6 @@ public class UserService {
 	public List<User> getAllUsers(){
 		return userRepository.findAll();
 	}
-	
-	public void apply(User user, Profession prof) {
-		
-		Set<Profession> set = user.getProfessions();
-		set.add(prof);
-		user.setStatus(UserStatus.Review);
-		user.setProfessions(set);
-		update(user);
-		
-	}
 
 
 }
