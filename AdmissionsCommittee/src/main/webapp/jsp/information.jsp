@@ -20,11 +20,11 @@
 			<h3 class="w3-bar-item">||</h3>
 			<a href="/home" class="w3-bar-item w3-button">Home</a> <a
 				href="/information" class="w3-bar-item w3-button">Add
-				information</a> <a href="#" class="w3-bar-item w3-button">Rating</a> <a
+				information</a> <a href="/rating" class="w3-bar-item w3-button">Rating</a> <a
 				href="/faculty" class="w3-bar-item w3-button">Create faculty</a> <a
 				href="/profession" class="w3-bar-item w3-button">Create
 				profession</a> <a href="/apply" class="w3-bar-item w3-button">Apply</a>
-				 <a href="/newApp"class="w3-bar-item w3-button">New App</a>
+			<a href="/newApp" class="w3-bar-item w3-button">New App</a>
 		</div>
 
 
@@ -42,13 +42,14 @@
 						<a onclick="document.forms['logoutForm'].submit()">LogOut</a>
 					</h2>
 				</c:if>
-<!-- --------------------------------------------------------------------------------- -->
+				<!-- --------------------------------------------------------------------------------- -->
 
 				<c:set var="val1" value="${certifEr}" />
 				<c:set var="val2" value="${mathEr}" />
 				<c:set var="val3" value="${lanEr}" />
 				<c:set var="val4" value="${hisEr}" />
-				
+				<c:set var="val5" value="${image}" />
+
 				<c:if test="${val1 == null}">
 
 					<div>
@@ -77,14 +78,14 @@
 
 					</div>
 				</c:if>
-				
+
 				<c:if test="${val1 != null}">
-						<h5> Certificate: ${val1} </h5>
+					<h5>Certificate: ${val1}</h5>
 				</c:if>
-<!-- --------------------------------------------------------------------------------- -->
+				<!-- --------------------------------------------------------------------------------- -->
 				<div>
-<!-- --------------------------------------------------------------------------------- -->
-					
+					<!-- --------------------------------------------------------------------------------- -->
+
 					<c:if test="${val2 == null}">
 						<form:form method="POST" action="${contextPath}/addEvaluations"
 							modelAttribute="evaluation">
@@ -111,14 +112,14 @@
 						</form:form>
 
 					</c:if>
-					
+
 					<c:if test="${val2 != null}">
-						<h5> Math: ${val2} </h5>
+						<h5>Math: ${val2}</h5>
 					</c:if>
 
-<!-- --------------------------------------------------------------------------------- -->
+					<!-- --------------------------------------------------------------------------------- -->
 
-				
+
 					<c:if test="${val3 == null}">
 						<form:form method="POST" action="${contextPath}/addEvaluations"
 							modelAttribute="evaluation">
@@ -135,7 +136,7 @@
 								</tr>
 
 								<tr>
-				
+
 									<td><input type="submit" value="Submit" /></td>
 								</tr>
 							</table>
@@ -146,14 +147,14 @@
 						</form:form>
 
 					</c:if>
-					
+
 					<c:if test="${val3 != null}">
-						<h5> Language: ${val3} </h5>
+						<h5>Language: ${val3}</h5>
 					</c:if>
 
-<!-- --------------------------------------------------------------------------------- -->
+					<!-- --------------------------------------------------------------------------------- -->
 
-		
+
 					<c:if test="${val4 == null}">
 						<form:form method="POST" action="${contextPath}/addEvaluations"
 							modelAttribute="evaluation">
@@ -170,7 +171,7 @@
 								</tr>
 
 								<tr>
-									
+
 									<td><input type="submit" value="Submit" /></td>
 								</tr>
 							</table>
@@ -180,14 +181,59 @@
 								value="${_csrf.token}" />
 						</form:form>
 					</c:if>
-					
+
 					<c:if test="${val4 != null}">
-						<h5> History: ${val4} </h5>
+						<h5>History: ${val4}</h5>
 					</c:if>
 
-<!-- --------------------------------------------------------------------------------- -->
-
+					<!-- --------------------------------------------------------------------------------- -->
+					<br>
 				</div>
+
+				
+				
+				<c:if test="${val5 == null}">
+				<div>
+
+					<form:form method="POST" action="${contextPath}/addImage" enctype="multipart/form-data">
+						<table>
+							<tr>
+								<td><input type="file" name="image" /></td>
+							</tr>
+
+							<tr>
+								<td><input type="submit" value="Add" /></td>
+							</tr>
+						</table>
+						<input type="hidden" name="${_csrf.parameterName}"
+							value="${_csrf.token}" />
+					</form:form>
+				</div>
+				</c:if>
+				
+				<c:if test="${val5 != null}">
+				<div>
+					
+					<h5> ${val5} </h5>
+					
+					<form:form method="POST" action="${contextPath}/addImage" enctype="multipart/form-data">
+						<table>
+							<tr>
+								<td><input type="file" name="image" /></td>
+							</tr>
+
+							<tr>
+								<td><input type="submit" value="Update" /></td>
+							</tr>
+						</table>
+						<input type="hidden" name="${_csrf.parameterName}"
+							value="${_csrf.token}" />
+					</form:form>
+				</div>
+				</c:if>
+				
+				
+				
 			</div>
 
 		</div>

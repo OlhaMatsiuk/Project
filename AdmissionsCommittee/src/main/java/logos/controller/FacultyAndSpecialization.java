@@ -8,7 +8,6 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +22,6 @@ import logos.domain.Evaluation;
 import logos.domain.Faculty;
 import logos.domain.Profession;
 import logos.domain.User;
-import logos.service.EvaluationService;
 import logos.service.FacultyService;
 import logos.service.ProfessionService;
 import logos.service.UserService;
@@ -39,8 +37,6 @@ public class FacultyAndSpecialization {
 	private UserRepository userRepository;
 	@Autowired
 	private UserService userService;
-	@Autowired
-	private EvaluationService evaluationService;
 
 	@RequestMapping(value = "/faculty", method = RequestMethod.GET)
 	public String faculty(Model model) {
@@ -56,7 +52,7 @@ public class FacultyAndSpecialization {
 		facultyService.save(faculty);
 		model.addAttribute("message", "Success!");
 
-		return "redirect:/home";
+		return "redirect:/faculty";
 	}
 
 	@RequestMapping(value = "/profession", method = RequestMethod.GET)
@@ -76,66 +72,10 @@ public class FacultyAndSpecialization {
 			BindingResult bindingResult) {
 
 		professionService.save(profession);
-		return "redirect:/home";
+		return "redirect:/profession";
 	}
 	
-	@RequestMapping(value = "/information", method = RequestMethod.GET)
-	public ModelAndView information( HttpServletRequest request) {
-		
-		ModelAndView modelAndView = new ModelAndView();
-		Principal principal = request.getUserPrincipal();
-		User userUp = userRepository.findByEmail(principal.getName()).get();	
-		
-		if(userUp.getEvaluationOfCertificate() > 0)
-			modelAndView.addObject("certifEr", userUp.getEvaluationOfCertificate());
-		
-		List<Evaluation> listEval = evaluationService.getAll();
-		List<Evaluation> listEval1 = new ArrayList<>();
-		
-		for (Evaluation evaluation : listEval) {
-			if(evaluation.getUser().getId() == userUp.getId()) 
-				listEval1.add(evaluation);
-		}
-		
-		for (Evaluation evaluation : listEval1) {
-			
-			if(evaluation.getNameSubject().equals("Math"))
-				modelAndView.addObject("mathEr", evaluation.getEvaluation());
-			
-			if(evaluation.getNameSubject().equals("Language"))
-				modelAndView.addObject("lanEr", evaluation.getEvaluation());
-			
-			if(evaluation.getNameSubject().equals("History"))
-				modelAndView.addObject("hisEr", evaluation.getEvaluation());
-		}
-			
-		modelAndView.addObject("user", new User());
-		modelAndView.addObject("evaluation", new Evaluation());
-		
-		return modelAndView;
-	}
-
-	@RequestMapping(value = "/addInformationCertifiacate", method = RequestMethod.POST)
-	public String addInformationCertificate( @ModelAttribute("user") User user, BindingResult bindingResult , Authentication aut) {
-
-		User userUp = userRepository.findByEmail(user.getEmail()).get();
-		
-		userUp.setEvaluationOfCertificate(user.getEvaluationOfCertificate());
-		userService.update(userUp);
-
-		return "redirect:/information";
-	}
 	
-	@RequestMapping(value = "/addEvaluations", method = RequestMethod.POST)
-	public String addEvaluations( @ModelAttribute("evaluation") Evaluation evaluation, BindingResult bindingResult, HttpServletRequest request) {
-
-		Principal principal = request.getUserPrincipal();
-		User userUp = userRepository.findByEmail(principal.getName()).get();
-		evaluation.setUser(userUp);
-		evaluationService.save(evaluation);
-		
-		return "redirect:/information";
-	}
 	
 	@RequestMapping(value = "/apply", method = RequestMethod.GET)
 	public ModelAndView apply(HttpServletRequest request) {

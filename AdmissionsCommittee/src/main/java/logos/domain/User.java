@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -57,6 +58,10 @@ public class User {
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "rating", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "profession_id"))
 	private Set<Profession> professions = new HashSet<Profession>();
+	
+	@Lob
+	private String encodedImage;
+
 	
 	public User() {}
 	
@@ -200,6 +205,8 @@ public class User {
 	public void setProfessions(Set<Profession> professions) {
 		this.professions = professions;
 	}
+	
+	
 //
 //	@Override
 //	public int hashCode() {
@@ -217,6 +224,14 @@ public class User {
 //		result = prime * result + ((status == null) ? 0 : status.hashCode());
 //		return result;
 //	}
+
+	public String getEncodedImage() {
+		return encodedImage;
+	}
+
+	public void setEncodedImage(String encodedImage) {
+		this.encodedImage = encodedImage;
+	}
 
 	@Override
 	public boolean equals(Object obj) {

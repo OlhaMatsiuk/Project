@@ -18,14 +18,12 @@
 			<h3 class="w3-bar-item">||</h3>
 			<a href="/home" class="w3-bar-item w3-button">Home</a>
 			<a href="/information" class="w3-bar-item w3-button">Add information</a>
-			 <a href="#" class="w3-bar-item w3-button">Rating</a>
+			 <a href="/rating" class="w3-bar-item w3-button">Rating</a>
 			 <a href="/faculty"	class="w3-bar-item w3-button">Create faculty</a> 
 			 <a href="/profession" class="w3-bar-item w3-button">Create profession</a> 
 			 <a href="/apply"class="w3-bar-item w3-button">Apply</a>
 			  <a href="/newApp"class="w3-bar-item w3-button">New App</a>
 		</div>
-
-
 
 
 		<!-- Page Content -->
@@ -63,9 +61,7 @@
 					
 						<input type="hidden" name="${_csrf.parameterName}"
 							value="${_csrf.token}" />
-					</form:form>
-					
-					<span>${message}</span>	
+					</form:form>	
 
 				</div>
 			</div>

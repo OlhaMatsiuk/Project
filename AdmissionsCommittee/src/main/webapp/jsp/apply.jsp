@@ -18,7 +18,7 @@
 			<h3 class="w3-bar-item">||</h3>
 			<a href="/home" class="w3-bar-item w3-button">Home</a> 
 			<a href="/information" class="w3-bar-item w3-button">Add information</a>
-			<a href="#"
+			<a href="/rating"
 				class="w3-bar-item w3-button">Rating</a> <a href="/faculty"
 				class="w3-bar-item w3-button">Create faculty</a> <a
 				href="/profession" class="w3-bar-item w3-button">Create

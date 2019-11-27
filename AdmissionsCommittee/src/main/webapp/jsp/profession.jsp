@@ -16,14 +16,13 @@
 		<!-- Sidebar -->
 		<div class="w3-sidebar w3-light-grey w3-bar-block" style="width: 10%">
 			<h3 class="w3-bar-item">||</h3>
-			<a href="/home" class="w3-bar-item w3-button">Home</a> 
-			<a href="/information" class="w3-bar-item w3-button">Add information</a>
-			<a href="#"
-				class="w3-bar-item w3-button">Rating</a> <a href="/faculty"
-				class="w3-bar-item w3-button">Create faculty</a> <a
+			<a href="/home" class="w3-bar-item w3-button">Home</a> <a
+				href="/information" class="w3-bar-item w3-button">Add
+				information</a> <a href="/rating" class="w3-bar-item w3-button">Rating</a> <a
+				href="/faculty" class="w3-bar-item w3-button">Create faculty</a> <a
 				href="/profession" class="w3-bar-item w3-button">Create
 				profession</a> <a href="/apply" class="w3-bar-item w3-button">Apply</a>
-				 <a href="/newApp"class="w3-bar-item w3-button">New App</a>
+			<a href="/newApp" class="w3-bar-item w3-button">New App</a>
 		</div>
 
 
@@ -82,7 +81,6 @@
 							value="${_csrf.token}" />
 					</form:form>
 
-					<span>${message}</span>
 
 				</div>
 			</div>
