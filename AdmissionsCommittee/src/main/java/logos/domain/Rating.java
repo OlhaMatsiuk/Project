@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "rating")
-public class Rating {
+public class Rating implements Comparable<Rating>{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -119,4 +119,11 @@ public class Rating {
 		return "Rating [id=" + id + ", user=" + user + ", profession=" + profession + ", status=" + status + "]";
 	}
 
+	@Override
+	public int compareTo(Rating o) {
+		if (getUser() == null || o.getUser() == null) {
+		      return 0;
+		    }
+		    return getUser().compareTo(o.getUser());
+	}
 }

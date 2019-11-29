@@ -23,6 +23,7 @@
 				href="/profession" class="w3-bar-item w3-button">Create
 				profession</a> <a href="/apply" class="w3-bar-item w3-button">Apply</a>
 			<a href="/newApp" class="w3-bar-item w3-button">New App</a>
+			<a href="/status"class="w3-bar-item w3-button">My status</a>
 		</div>
 
 

@@ -18,7 +18,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements Comparable<User>{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -277,6 +277,36 @@ public User() {}
 				+ ", password=" + password + ", passwordConfirm=" + passwordConfirm + ", evaluationOfCertificate="
 				+ evaluationOfCertificate + ", evaluations=" + evaluations + ", encodedImage=" + encodedImage
 				+ ", role=" + role + "]";
+	}
+
+	@Override
+	public int compareTo(User o) {
+		if (getEvaluationOfCertificate() == 0 || o.getEvaluationOfCertificate() == 0) {
+		      return 0;
+		    }
+		
+		int bal1, bal2;
+		int serBal1 = 0, serBal2 = 0;
+		
+		Set<Evaluation> set1 = this.getEvaluations();
+		Set<Evaluation> set2 = o.getEvaluations();
+		
+		
+		for (Evaluation evaluation : set1) {
+			serBal1+= evaluation.getEvaluation();
+		}
+		
+		for (Evaluation evaluation : set2) {
+			serBal2+= evaluation.getEvaluation();
+		}
+		
+		serBal1 = serBal1/set1.size();
+		serBal2 = serBal2/set2.size();
+		
+		bal1 = this.getEvaluationOfCertificate() + serBal1;
+		bal2 = o.getEvaluationOfCertificate() + serBal2;
+		
+		    return new Integer(bal1).compareTo(new Integer(bal2));
 	}
 	
 }

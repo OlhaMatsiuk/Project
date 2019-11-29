@@ -21,8 +21,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import logos.dao.UserRepository;
 import logos.domain.Evaluation;
+import logos.domain.Rating;
 import logos.domain.User;
 import logos.service.EvaluationService;
+import logos.service.RatingService;
 import logos.service.UserDTOHelper;
 import logos.service.UserService;
 
@@ -35,6 +37,8 @@ public class UserController {
     private UserRepository userRepository;
 	@Autowired
 	private EvaluationService evaluationService;
+	@Autowired
+	private RatingService ratingService;
 
 
 
@@ -151,6 +155,19 @@ public class UserController {
 		return "redirect:/information";
 	}
     
-    
-
+	  @RequestMapping(value = "/status", method = RequestMethod.GET)
+		public ModelAndView status( HttpServletRequest request) {
+		  
+		    Principal principal = request.getUserPrincipal();
+			User userUp = userRepository.findByEmail(principal.getName()).get();
+			
+			ModelAndView model = new ModelAndView();
+			
+			List<Rating> listProfession = ratingService.getByUserId(userUp.getId());
+			
+			
+			model.addObject("rating", listProfession);
+			
+			return model;
+	  	}
 }

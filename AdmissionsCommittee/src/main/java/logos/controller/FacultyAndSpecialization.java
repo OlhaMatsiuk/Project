@@ -37,8 +37,6 @@ public class FacultyAndSpecialization {
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
-	private UserService userService;
-	@Autowired
 	private RatingService ratingService;
 
 	@RequestMapping(value = "/faculty", method = RequestMethod.GET)
@@ -52,7 +50,25 @@ public class FacultyAndSpecialization {
 	public String createFaculty(Model model, @Valid @ModelAttribute("faculty") Faculty faculty,
 			BindingResult bindingResult) {
 
-		facultyService.save(faculty);
+		List<Faculty> listFaculty = facultyService.getAllFaculty();
+		int i = 0;
+
+		if (listFaculty.isEmpty()) {
+			facultyService.save(faculty);
+		}
+		else {
+			for (Faculty faculty2 : listFaculty) {
+				if (!faculty2.getName().equals(faculty.getName()))
+					i++;
+			}
+			
+			if(i == listFaculty.size()) {
+				facultyService.save(faculty);
+			}
+			
+			i = 0;
+		}
+
 		model.addAttribute("message", "Success!");
 
 		return "redirect:/faculty";
@@ -63,6 +79,24 @@ public class FacultyAndSpecialization {
 
 		ModelAndView model = new ModelAndView();
 		List<Faculty> list = facultyService.getAllFaculty();
+		List<Faculty> listNew = new ArrayList<Faculty>();
+		int i = 0;
+
+		for (Faculty faculty : list) {
+			if (listNew.isEmpty())
+				listNew.add(faculty);
+			else {
+				for (Faculty facultyNew : listNew) {
+					if (facultyNew.equals(faculty))
+						i++;
+				}
+			}
+
+			if (i == listNew.size())
+				listNew.add(faculty);
+
+			i = 0;
+		}
 
 		model.addObject("faculties", list);
 		model.addObject("profession", new Profession());
@@ -74,46 +108,61 @@ public class FacultyAndSpecialization {
 	public String createProfession(Model model, @Valid @ModelAttribute("profession") Profession profession,
 			BindingResult bindingResult) {
 
-		professionService.save(profession);
+
+		List<Profession> listProfession = professionService.getAllProfession();
+		int i = 0;
+
+		if (listProfession.isEmpty()) {
+			professionService.save(profession);
+		}
+		else {
+			for (Profession prof2 : listProfession) {
+				if (!prof2.getName().equals(profession.getName()))
+					i++;
+			}
+			
+			if(i == listProfession.size()) {
+				professionService.save(profession);
+			}
+			
+			i = 0;
+		}
+		
+		
 		return "redirect:/profession";
 	}
-	
-	
-	
+
 	@RequestMapping(value = "/apply", method = RequestMethod.GET)
 	public ModelAndView apply(HttpServletRequest request) {
 
 		ModelAndView model = new ModelAndView();
-		
+
 		Principal principal = request.getUserPrincipal();
 		User userUp = userRepository.findByEmail(principal.getName()).get();
-		
+
 		List<Profession> listProfession = professionService.getAllProfession();
 		List<Profession> setProfession = ratingService.getAllProfByUser(userUp);
 		List<Profession> listProfession2 = new ArrayList<Profession>();
-		
+
 		for (Profession profession : listProfession) {
 			for (Profession profession1 : setProfession) {
-				
-				if(profession1.equals(profession))
+
+				if (profession1.equals(profession))
 					listProfession2.add(profession1);
 			}
 		}
-		
-		
-		
+
 		Set<Evaluation> setEv = userUp.getEvaluations();
 		int i = 0;
-		
+
 		for (Evaluation evaluation : setEv) {
-			if(evaluation.getEvaluation() > 0)
+			if (evaluation.getEvaluation() > 0)
 				i++;
 		}
-		
-		if(userUp.getEvaluationOfCertificate()>0 && i==3)
+
+		if (userUp.getEvaluationOfCertificate() > 0 && i == 3)
 			model.addObject("security", 1);
-		
-		
+
 		model.addObject("prof", listProfession);
 		model.addObject("profGod", listProfession2);
 		model.addObject("profession", new Profession());
@@ -122,16 +171,16 @@ public class FacultyAndSpecialization {
 	}
 
 	@RequestMapping(value = "/addBid", method = RequestMethod.POST)
-	public String createBid(@Valid @ModelAttribute("profession") Profession prof, BindingResult bindingResult, HttpServletRequest request) {
+	public String createBid(@Valid @ModelAttribute("profession") Profession prof, BindingResult bindingResult,
+			HttpServletRequest request) {
 
 		Principal principal = request.getUserPrincipal();
 		User userUp = userRepository.findByEmail(principal.getName()).get();
-		
+
 		Profession profession = professionService.findById(prof.getId()).get();
-		
-		
+
 		ratingService.apply(userUp, profession);
-		
+
 		return "redirect:/apply";
 	}
 
