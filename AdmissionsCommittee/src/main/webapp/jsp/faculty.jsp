@@ -1,6 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,16 +15,42 @@
 
 
 	<!-- Sidebar -->
+		<div class="container">
+
+
+		<!-- Sidebar -->
 		<div class="w3-sidebar w3-light-grey w3-bar-block" style="width: 10%">
-			<h3 class="w3-bar-item">||</h3>
+			<h3 class="w3-bar-item">|||</h3>
+			
 			<a href="/home" class="w3-bar-item w3-button">Home</a>
+			
+			<security:authorize access="hasAuthority('USER')">
 			<a href="/information" class="w3-bar-item w3-button">Add information</a>
+			</security:authorize>
+			
+			
 			 <a href="/rating" class="w3-bar-item w3-button">Rating</a>
+			 
+			 <security:authorize access="hasAuthority('ADMIN')">
 			 <a href="/faculty"	class="w3-bar-item w3-button">Create faculty</a> 
+			 </security:authorize>
+			 
+			 <security:authorize access="hasAuthority('ADMIN')">
 			 <a href="/profession" class="w3-bar-item w3-button">Create profession</a> 
-			 <a href="/apply"class="w3-bar-item w3-button">Apply</a>
+			 </security:authorize>
+			 
+			 <security:authorize access="hasAuthority('USER')">
+			 <a href="/apply"class="w3-bar-item w3-button">Apply </a>
+			 </security:authorize>
+			 
+			 <security:authorize access="hasAuthority('ADMIN')">
 			  <a href="/newApp"class="w3-bar-item w3-button">New App</a>
+			  </security:authorize>
+			  
+			  <security:authorize access="hasAuthority('USER')">
 			  <a href="/status"class="w3-bar-item w3-button">My status</a>
+			  </security:authorize>
+			  
 		</div>
 
 

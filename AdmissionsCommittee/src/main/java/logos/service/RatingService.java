@@ -3,6 +3,8 @@ package logos.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,27 +16,35 @@ import logos.domain.UserStatus;
 
 @Service
 public class RatingService {
+	
+	private Logger logger = LoggerFactory.getLogger(RatingService.class);
 
 	@Autowired
 	private RatingRepository ratingRepository;
 
 	public List<Rating> getAll() {
+		logger.info("Get all ratings items");
 		return ratingRepository.findAll();
 	}
 
 	public void delete(Rating rating) {
+		logger.info("Delete rating item");
 		ratingRepository.delete(rating);
 	}
 
 	public Rating add(Rating rating) {
+		logger.info("Create rating item");
 		return ratingRepository.save(rating);
 	}
 	
 	public void update(Rating rating) {
+		logger.info("Update rating item");
 		ratingRepository.save(rating);
 	}
 
 	public void apply(User user, Profession prof) {
+		
+		logger.info("Create rating item");
 
 		List<Rating> list = getAll();
 		int i = 0;
@@ -58,6 +68,8 @@ public class RatingService {
 	}
 
 	public List<Profession> getAllProfByUser(User user) {
+		
+		logger.info("Get all ratings items where user = " );
 
 		List<Rating> list = getAll();
 		List<Rating> listByUser = new ArrayList<Rating>();
@@ -78,6 +90,8 @@ public class RatingService {
 	
 	public List<Rating> getByUserId(int id) {
 		
+		logger.info("Get all ratings items where userId = " );
+		
 		List<Rating> list = getAll();
 		List<Rating> listNew = new ArrayList<Rating>();
 		
@@ -90,6 +104,8 @@ public class RatingService {
 	}
 	
 public List<Rating> getByProfId(int id) {
+	
+	logger.info("Get all ratings items where professionId = ");
 		
 		List<Rating> list = getAll();
 		List<Rating> listNew = new ArrayList<Rating>();
