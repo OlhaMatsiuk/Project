@@ -258,3 +258,45 @@ input[type=text]:placeholder, input[type=password]:placeholder {
 #icon {
   width:60%;
 }
+
+div.center{
+	
+	width : 40%;
+}
+
+div.inp-center{
+	margin-left: 30%;
+}
+
+form.form-signin{
+	text-align: center;
+	padding: 5%;
+}
+
+div.container{
+	position: absolute;
+	top: 30%;
+	left: 50%;
+	transform: translate(-50%, -30%);
+}
+
+div.container2{
+	position: absolute;
+	width:25%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+form.form-signin2{
+	text-align: center;
+	padding-top: 10%;
+}
+
+div.marDiv{
+	margin-bottom: 10px;
+	hidth: 20px;
+}
+div.footerWidth{
+	margin-left: 30%;
+	width:40%;
+}
