@@ -25,7 +25,6 @@ import logos.domain.User;
 import logos.service.FacultyService;
 import logos.service.ProfessionService;
 import logos.service.RatingService;
-import logos.service.UserService;
 
 @Controller
 public class FacultyAndSpecialization {

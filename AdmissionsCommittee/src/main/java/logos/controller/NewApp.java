@@ -11,12 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import logos.dao.UserRepository;
 import logos.domain.Rating;
-import logos.domain.User;
 import logos.domain.UserStatus;
 import logos.service.RatingService;
-import logos.service.UserService;
 
 @Controller
 public class NewApp {
