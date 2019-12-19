@@ -289,7 +289,6 @@ div.container2{
 }
 form.form-signin2{
 	text-align: center;
-	padding-top: 10%;
 }
 
 div.marDiv{
@@ -299,4 +298,8 @@ div.marDiv{
 div.footerWidth{
 	margin-left: 30%;
 	width:40%;
+}
+
+div.lang{
+	color: #6586e7;
 }

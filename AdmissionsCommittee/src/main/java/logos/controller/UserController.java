@@ -52,9 +52,18 @@ public class UserController {
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
 
+    	
+    	List<User> allUser = userService.getAllUsers();
+    	
         if (bindingResult.hasErrors()) {
             return "registration";
         }
+        
+        for (User user : allUser) {
+			if(userForm.getEmail().equals(user.getEmail()) || userForm.getFirstName() == null || userForm.getLastName() == null )
+				return "registration";	
+		}
+        
         userService.save(userForm);
 
 
