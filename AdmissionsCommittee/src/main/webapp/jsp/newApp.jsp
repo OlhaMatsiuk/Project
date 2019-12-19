@@ -1,122 +1,204 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="security"
+	uri="http://www.springframework.org/security/tags"%>
+
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Profession</title>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>New Application</title>
+
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<link href="${contextPath}/resources/css/bootstrap.min.css"
+	rel="stylesheet">
+<link href="${contextPath}/resources/css/common.css" rel="stylesheet">
+
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		var selItem = localStorage.getItem("locales");
+		$('#locales').val(selItem ? selItem : 'en');
+		$("#locales").change(function() {
+			var selectedOption = $('#locales').val();
+			if (selectedOption) {
+				window.location.replace('?lang=' + selectedOption);
+				localStorage.setItem("locales", selectedOption);
+			}
+		});
+	});
+</script>
+
 </head>
 <body>
 <body>
 	<div class="container">
 
 
-		<!-- Sidebar -->
-		<div class="container">
+		<!-- ----------DEF----------- -->
 
 
 		<!-- Sidebar -->
-		<div class="w3-sidebar w3-light-grey w3-bar-block" style="width: 10%">
-			<h3 class="w3-bar-item">|||</h3>
-			
-			<a href="/home" class="w3-bar-item w3-button">Home</a>
-			
+		<div class="w3-sidebar w3-light-grey w3-bar-block"
+			style="width: 15%; position: absolute; left: 0; top: 0;">
+			<h3 class="w3-bar-item">
+				<spring:message code='nav.name' />
+			</h3>
+
+			<a href="/home" class="w3-bar-item w3-button"><spring:message
+					code='nav.home' /></a>
+
 			<security:authorize access="hasAuthority('USER')">
-			<a href="/information" class="w3-bar-item w3-button">Add information</a>
+				<a href="/information" class="w3-bar-item w3-button"><spring:message
+						code='nav.add_inform' /></a>
 			</security:authorize>
-			
-			
-			 <a href="/rating" class="w3-bar-item w3-button">Rating</a>
-			 
-			 <security:authorize access="hasAuthority('ADMIN')">
-			 <a href="/faculty"	class="w3-bar-item w3-button">Create faculty</a> 
-			 </security:authorize>
-			 
-			 <security:authorize access="hasAuthority('ADMIN')">
-			 <a href="/profession" class="w3-bar-item w3-button">Create profession</a> 
-			 </security:authorize>
-			 
-			 <security:authorize access="hasAuthority('USER')">
-			 <a href="/apply"class="w3-bar-item w3-button">Apply </a>
-			 </security:authorize>
-			 
-			 <security:authorize access="hasAuthority('ADMIN')">
-			  <a href="/newApp"class="w3-bar-item w3-button">New App</a>
-			  </security:authorize>
-			  
-			  <security:authorize access="hasAuthority('USER')">
-			  <a href="/status"class="w3-bar-item w3-button">My status</a>
-			  </security:authorize>
-			  
+
+
+			<a href="/rating" class="w3-bar-item w3-button"><spring:message
+					code='nav.rating' /></a>
+
+			<security:authorize access="hasAuthority('ADMIN')">
+				<a href="/faculty" class="w3-bar-item w3-button"><spring:message
+						code='nav.faculty' /></a>
+			</security:authorize>
+
+			<security:authorize access="hasAuthority('ADMIN')">
+				<a href="/profession" class="w3-bar-item w3-button"><spring:message
+						code='nav.profession' /></a>
+			</security:authorize>
+
+			<security:authorize access="hasAuthority('USER')">
+				<a href="/apply" class="w3-bar-item w3-button"><spring:message
+						code='nav.apply' /></a>
+			</security:authorize>
+
+			<security:authorize access="hasAuthority('ADMIN')">
+				<a href="/newApp" class="w3-bar-item w3-button"><spring:message
+						code='nav.new_app' /></a>
+			</security:authorize>
+
+			<security:authorize access="hasAuthority('USER')">
+				<a href="/status" class="w3-bar-item w3-button"><spring:message
+						code='nav.status' /></a>
+			</security:authorize>
+
+			<div class="w3-bar-item w3-button">
+				<fieldset>
+					<label class="underlineHover"><spring:message
+							code="login.choose_language" /></label> <select id="locales">
+						<option value="en"><spring:message code='login.english' /></option>
+						<option value="ua"><spring:message code='login.ukrainian' /></option>
+
+					</select>
+				</fieldset>
+			</div>
+
+			<a onclick="document.forms['logoutForm'].submit()"
+				class="w3-bar-item w3-button"><spring:message code='nav.logout' /></a>
+
 		</div>
+
+		<!--  top -->
+		<div style="margin-left: 10%">
+
+			<div class="w3-container w3-teal"
+				style="width: 85%; position: absolute; right: 0; top: 0; margin-bottom: 100px;">
+
+				<form id="logoutForm" method="POST" action="${contextPath}/logout">
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
+				</form>
+				<h2>
+					<spring:message code='nav.welcome' />
+					${pageContext.request.userPrincipal.name}
+				</h2>
+
+			</div>
+
+		</div>
+
+		<!-- ----------DEF END----------- -->
 
 
 		<!-- Page Content -->
-		<div style="margin-left: 10%">
+		<div style="position: absolute; top: 10%; left: 15%;">
 
 
 			<div class="w3-container">
 
 				<c:if test="${pageContext.request.userPrincipal.name != null}">
-					<form id="logoutForm" method="POST" action="${contextPath}/logout">
-						<input type="hidden" name="${_csrf.parameterName}"
-							value="${_csrf.token}" />
-					</form>
 					<h2>
-						<a onclick="document.forms['logoutForm'].submit()">LogOut</a>
-						<a href="/end">END</a>
+						<a href="/end" style="color: grey"><spring:message
+								code='newApp.createRating' /></a>
 					</h2>
 				</c:if>
 				<!-- ------------------------------------------------------------------------------------------ -->
+				
+				<table class="table table-striped" style="text-align: center">
+					<thead>
+						<tr>
+							<th><spring:message code='login.firstName' /></th>
+							<th><spring:message code='login.lastName' /></th>
+							<th><spring:message code='rating.certificate' /></th>
+							<th><spring:message code='rating.image' /></th>
+							<th><spring:message code='rating.profession' /></th>
+							<th><spring:message code='newApp.allow' /></th>
+							<th><spring:message code='newApp.not_allow' /></th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="rating" items="${rating}">
+							<tr>
+								<td>${rating.user.firstName}</td>
+								<td>${rating.user.lastName}</td>
+								<td>${rating.user.evaluationOfCertificate}</td>
+								<td><img
+									src="data:image/jpg;base64,${rating.user.encodedImage}"
+									alt="image" style="width: 10%"></td>
+								<td>${rating.profession.name}</td>
+								<td><form id="logoutForm" method="POST"
+										action="${contextPath}/allowApply">
 
+										<input type="hidden" name="userID" value="${rating.user.id}">
+										<input type="hidden" name="profID"
+											value="${rating.profession.id}"> <input type="submit"
+											value="Allow!"> <input type="hidden"
+											name="${_csrf.parameterName}" value="${_csrf.token}" />
+									</form></td>
+								<td><form id="logoutForm" method="POST"
+										action="${contextPath}/notAllowApply">
 
-				<c:forEach items="${rating}" var="rating">
-					<div style="with: 10%; height: 10%">
-
-
-						<img alt="image" src="data:image/jpg;base64,${rating.user.encodedImage}" style="width: 10%">
-						<h5>First name: ${rating.user.firstName}</h5>
-						<h5>Last name: ${rating.user.lastName}</h5>
-			 			<h5>Profession: ${rating.profession.name}</h5>
-						
-						
-						<form id="logoutForm" method="POST"
-								action="${contextPath}/allowApply">
-								
-								<input type="hidden" name="userID" value="${rating.user.id}">
-								<input type="hidden" name="profID" value="${rating.profession.id}">
-								<input type="submit" value="Allow!">
-								
-								<input type="hidden" name="${_csrf.parameterName}"
-									value="${_csrf.token}" />
-						</form>
-						
-						<form id="logoutForm" method="POST"
-								action="${contextPath}/notAllowApply">
-								
-								<input type="hidden" name="userID" value="${rating.user.id}">
-								<input type="hidden" name="profID" value="${rating.profession.id}">
-								<input type="submit" value="Not Allow!">
-								
-								<input type="hidden" name="${_csrf.parameterName}"
-									value="${_csrf.token}" />
-						</form>
-						
-						
-						<h3>----------------------</h3>
-					</div>
-				</c:forEach>
-
-	<!-- ------------------------------------------------------------------------------------------ -->
+										<input type="hidden" name="userID" value="${rating.user.id}">
+										<input type="hidden" name="profID"
+											value="${rating.profession.id}"> <input type="submit"
+											value="Not Allow!"> <input type="hidden"
+											name="${_csrf.parameterName}" value="${_csrf.token}" />
+									</form></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 			</div>
 
 		</div>
 
 
-	</div>
 	</div>
 	<!-- /container -->
 	<script

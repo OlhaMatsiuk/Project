@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
@@ -10,103 +11,120 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-<meta name="description" content="">
-<meta name="author" content="">
 
-<title>Welcome</title>
 
-<link href="${contextPath}/resources/css/bootstrap.min.css"
-	rel="stylesheet">
+<title>Home</title>
+
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+<link href="${contextPath}/resources/css/common.css" rel="stylesheet">
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		var selItem = localStorage.getItem("locales");
+		$('#locales').val(selItem ? selItem : 'en');
+		$("#locales").change(function() {
+			var selectedOption = $('#locales').val();
+			if (selectedOption) {
+				window.location.replace('?lang=' + selectedOption);
+				localStorage.setItem("locales", selectedOption);
+			}
+		});
+	});
+</script>
+
 </head>
 <body>
-	<div class="container">
+		<!-- ----------DEF----------- -->
 
 
-		<!-- Sidebar -->
-		<div class="w3-sidebar w3-light-grey w3-bar-block" style="width: 10%">
-			<h3 class="w3-bar-item">|||</h3>
-			
-			<a href="/home" class="w3-bar-item w3-button">Home</a>
-			
-			<security:authorize access="hasAuthority('USER')">
-			<a href="/information" class="w3-bar-item w3-button">Add information</a>
-			</security:authorize>
-			
-			
-			 <a href="/rating" class="w3-bar-item w3-button">Rating</a>
-			 
-			 <security:authorize access="hasAuthority('ADMIN')">
-			 <a href="/faculty"	class="w3-bar-item w3-button">Create faculty</a> 
-			 </security:authorize>
-			 
-			 <security:authorize access="hasAuthority('ADMIN')">
-			 <a href="/profession" class="w3-bar-item w3-button">Create profession</a> 
-			 </security:authorize>
-			 
-			 <security:authorize access="hasAuthority('USER')">
-			 <a href="/apply"class="w3-bar-item w3-button">Apply </a>
-			 </security:authorize>
-			 
-			 <security:authorize access="hasAuthority('ADMIN')">
-			  <a href="/newApp"class="w3-bar-item w3-button">New App</a>
-			  </security:authorize>
-			  
-			  <security:authorize access="hasAuthority('USER')">
-			  <a href="/status"class="w3-bar-item w3-button">My status</a>
-			  </security:authorize>
-			  
+	<!-- Sidebar -->
+	<div class="w3-sidebar w3-light-grey w3-bar-block"
+		style="width: 15%; position: absolute; left: 0; top: 0;">
+		<h3 class="w3-bar-item">
+			<spring:message code='nav.name' />
+		</h3>
+
+		<a href="/home" class="w3-bar-item w3-button"><spring:message
+				code='nav.home' /></a>
+
+		<security:authorize access="hasAuthority('USER')">
+			<a href="/information" class="w3-bar-item w3-button"><spring:message
+					code='nav.add_inform' /></a>
+		</security:authorize>
+
+
+		<a href="/rating" class="w3-bar-item w3-button"><spring:message
+				code='nav.rating' /></a>
+
+		<security:authorize access="hasAuthority('ADMIN')">
+			<a href="/faculty" class="w3-bar-item w3-button"><spring:message
+					code='nav.faculty' /></a>
+		</security:authorize>
+
+		<security:authorize access="hasAuthority('ADMIN')">
+			<a href="/profession" class="w3-bar-item w3-button"><spring:message
+					code='nav.profession' /></a>
+		</security:authorize>
+
+		<security:authorize access="hasAuthority('USER')">
+			<a href="/apply" class="w3-bar-item w3-button"><spring:message
+					code='nav.apply' /></a>
+		</security:authorize>
+
+		<security:authorize access="hasAuthority('ADMIN')">
+			<a href="/newApp" class="w3-bar-item w3-button"><spring:message
+					code='nav.new_app' /></a>
+		</security:authorize>
+
+		<security:authorize access="hasAuthority('USER')">
+			<a href="/status" class="w3-bar-item w3-button"><spring:message
+					code='nav.status' /></a>
+		</security:authorize>
+
+		<div class="w3-bar-item w3-button">
+			<fieldset>
+				<label class="underlineHover"><spring:message
+						code="login.choose_language" /></label> <select id="locales">
+					<option value="en"><spring:message code='login.english' /></option>
+					<option value="ua"><spring:message code='login.ukrainian' /></option>
+
+				</select>
+			</fieldset>
 		</div>
 
-
-
-		<!-- Page Content -->
-		<div style="margin-left: 10%">
-
-			<div class="w3-container w3-teal">
-				<h1>Rating</h1>
-			</div>
-
-			<div class="w3-container">
-
-				<c:if test="${pageContext.request.userPrincipal.name != null}">
-					<form id="logoutForm" method="POST" action="${contextPath}/logout">
-						<input type="hidden" name="${_csrf.parameterName}"
-							value="${_csrf.token}" />
-					</form>
-					<h2>
-						Welcome ${pageContext.request.userPrincipal.name} | <a
-							onclick="document.forms['logoutForm'].submit()">LogOut</a>
-					</h2>
-				</c:if>
-
-
-
-				<%-- <c:if test="${not empty periodicals}">
-					<c:forEach items="${periodicals}" var="currentPeriodical">
-
-						<div class="w3-card-4" style="width: 20%; margin:2%" >
-							<img src="https://kaverisias.com/wp-content/uploads/2018/01/catalog-default-img.gif" alt="Norway" style="width: 100%">
-							<div class="w3-container w3-center">
-								<h3>${currentPeriodical.name}</h3>
-								<p>${currentPeriodical.description}</p>
-								<p>${currentPeriodical.price}</p>
-							</div>
-							<button class="w3-button w3-block w3-dark-grey">+ add to bucket</button>
-						</div>
-
-					</c:forEach>
-				</c:if> --%>
-				
-				
-			</div>
-
-		</div>
-
+		<a onclick="document.forms['logoutForm'].submit()"
+			class="w3-bar-item w3-button"><spring:message code='nav.logout' /></a>
 
 	</div>
-	<!-- /container -->
+	
+<!--  top -->
+	<div style="margin-left: 10%">
+
+		<div class="w3-container w3-teal"
+			style="width: 85%; position: absolute; right: 0; top: 0; margin-bottom: 100px;">
+
+			<form id="logoutForm" method="POST" action="${contextPath}/logout">
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
+			</form>
+			<h2>
+				<spring:message code='nav.welcome' />
+				${pageContext.request.userPrincipal.name}
+			</h2>
+
+		</div>
+
+	</div>
+	
+	<!-- ----------DEF END----------- -->
+	
+	
+	
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script src="${contextPath}/resources/js/bootstrap.min.js"></script>

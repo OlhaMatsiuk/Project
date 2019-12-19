@@ -1,7 +1,6 @@
 package logos.service;
 
 import java.util.List;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,10 +9,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import logos.dao.UserRepository;
-import logos.domain.Profession;
 import logos.domain.User;
 import logos.domain.UserRole;
-import logos.domain.UserStatus;
 
 @Service
 public class UserService {
