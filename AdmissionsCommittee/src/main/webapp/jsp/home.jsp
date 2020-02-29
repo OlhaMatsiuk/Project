@@ -1,7 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="security"
+	uri="http://www.springframework.org/security/tags"%>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
@@ -16,12 +18,17 @@
 <title>Home</title>
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<link href="${contextPath}/resources/css/bootstrap.min.css"
+	rel="stylesheet">
 <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -39,7 +46,7 @@
 
 </head>
 <body>
-		<!-- ----------DEF----------- -->
+	<!-- ----------DEF----------- -->
 
 
 	<!-- Sidebar -->
@@ -101,8 +108,8 @@
 			class="w3-bar-item w3-button"><spring:message code='nav.logout' /></a>
 
 	</div>
-	
-<!--  top -->
+
+	<!--  top -->
 	<div style="margin-left: 10%">
 
 		<div class="w3-container w3-teal"
@@ -119,12 +126,33 @@
 
 		</div>
 
+
+		<div style="margin: 10%">
+
+			<h3>Курс Валют</h3>
+			<table>
+				<tr>
+					<td>Валюта</td>
+					<td>Купити</td>
+					<td>Продати</td>
+
+				</tr>
+				<c:forEach items="${money}" var="money">
+					<tr>
+						<td>${money.ccy}</td>
+						<td>${money.buy}</td>
+						<td>${money.sale}</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
+
 	</div>
-	
+
 	<!-- ----------DEF END----------- -->
-	
-	
-	
+
+
+
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script src="${contextPath}/resources/js/bootstrap.min.js"></script>

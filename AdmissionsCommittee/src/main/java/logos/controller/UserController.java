@@ -1,6 +1,8 @@
 package logos.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +21,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import logos.dao.UserRepository;
 import logos.domain.Evaluation;
+import logos.domain.Money;
 import logos.domain.Rating;
 import logos.domain.User;
 import logos.service.EvaluationService;
@@ -82,13 +90,19 @@ public class UserController {
     }
 
     @RequestMapping(value ="/home", method = RequestMethod.GET)
-   	public ModelAndView welcome() {
-   		ModelAndView map = new ModelAndView("home");
-   		//map.addObject("periodicals", .periodicalsServicegetAllPeriodicals());
+   	public ModelAndView welcome() throws JsonParseException, JsonMappingException, IOException {
+   		ModelAndView model = new ModelAndView();
    		
-   		
+   		ObjectMapper mapper = new ObjectMapper();
+		TypeReference<List<Money>> typeReference = new TypeReference<List<Money>>() {};
+		URL url = new URL("https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5");
+		
+		List<Money> money = mapper.readValue(url.openStream(), typeReference);
+		
+		model.addObject("money", money);
+		
 
-   		return map;
+   		return model;
    	}
     
     @RequestMapping(value = "/information", method = RequestMethod.GET)
